@@ -1,5 +1,7 @@
 package co.nz.camel.tutorial.routing.test;
 
+import static org.apache.camel.language.simple.SimpleLanguage.simple;
+
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -12,33 +14,42 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
+import co.nz.camel.tutorial.routing.model.Cheese;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-public class WireTapTest {
+public class WireTapStateLeaksTest {
 
-	@Produce(uri = "direct:wtStart")
+	@Produce(uri = "direct:wtslStart")
 	protected ProducerTemplate template;
 
-	@EndpointInject(uri = "mock:wttapped")
+	@EndpointInject(uri = "mock:wtsltapped")
 	private MockEndpoint tapped;
 
-	@EndpointInject(uri = "mock:wtout")
+	@EndpointInject(uri = "mock:wtslout")
 	private MockEndpoint out;
 
 	@Test
-	public void testMessageRoutedToWireTapEndpoint()
+	public void testOutMessageAffectedByTappedRoute()
 			throws InterruptedException {
-		final String messageBody = "Message to be tapped";
+		final Cheese cheese = new Cheese();
+		cheese.setAge(1);
 
-		tapped.expectedBodiesReceived(messageBody);
-		out.expectedBodiesReceived(messageBody);
+		// should receive same object that was sent
+		out.expectedBodiesReceived(cheese);
+		// since no copy, should have updated age
+		out.message(0).expression(simple("${body.age} == 2"));
 
-		template.sendBody(messageBody);
+		// should receive same object that was sent
+		tapped.expectedBodiesReceived(cheese);
+		tapped.message(0).expression(simple("${body.age} == 2"));
+		tapped.setResultWaitTime(1000);
 
-		tapped.assertIsSatisfied();
+		template.sendBody(cheese);
+
 		out.assertIsSatisfied();
+		tapped.assertIsSatisfied();
 	}
 
 }

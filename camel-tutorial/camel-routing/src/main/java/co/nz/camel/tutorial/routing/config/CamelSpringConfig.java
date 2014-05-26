@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 import co.nz.camel.tutorial.routing.route.ContentBasedRouterRouteBuilder;
 import co.nz.camel.tutorial.routing.route.FilteringRouteBuilder;
 import co.nz.camel.tutorial.routing.route.WireTapRouteBuilder;
+import co.nz.camel.tutorial.routing.route.WireTapStateLeaksRouteBuilder;
+import co.nz.camel.tutorial.routing.route.WireTapStateNoLeaksRouteBuilder;
 
 @Configuration
 public class CamelSpringConfig {
@@ -55,7 +57,8 @@ public class CamelSpringConfig {
 	public CamelRouteBuildersInitializer setupRoutes() throws Exception {
 		return new CamelRouteBuildersInitializer(camelContext(),
 				contentBasedRouterRouteBuilder, filteringRouteBuilder,
-				wireTapRouteBuilder);
+				wireTapRouteBuilder, new WireTapStateLeaksRouteBuilder(),
+				new WireTapStateNoLeaksRouteBuilder());
 	}
 
 	@Bean
