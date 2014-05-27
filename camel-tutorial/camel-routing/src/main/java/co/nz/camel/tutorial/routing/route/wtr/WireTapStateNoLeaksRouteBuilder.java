@@ -1,4 +1,4 @@
-package co.nz.camel.tutorial.routing.route;
+package co.nz.camel.tutorial.routing.route.wtr;
 
 import org.apache.camel.builder.RouteBuilder;
 
@@ -12,7 +12,9 @@ public class WireTapStateNoLeaksRouteBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		from("direct:wtsnlstart").log("Cheese is ${body.age} months old")
+		from("direct:wtsnlstart")
+				// .autoStartup(false)
+				.log("Cheese is ${body.age} months old")
 				.wireTap("direct:wtsnlprocessInBackground")
 				.onPrepare(new CheeseCloningProcessor()).delay(constant(1000))
 				.to("mock:wtsnlout");

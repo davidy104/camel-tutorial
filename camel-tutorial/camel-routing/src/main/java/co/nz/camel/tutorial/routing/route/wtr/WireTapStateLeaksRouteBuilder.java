@@ -1,4 +1,4 @@
-package co.nz.camel.tutorial.routing.route;
+package co.nz.camel.tutorial.routing.route.wtr;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,9 @@ public class WireTapStateLeaksRouteBuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		from("direct:wtslStart").log("Cheese is ${body.age} months old")
+		from("direct:wtslStart")
+				// .autoStartup(false)
+				.log("Cheese is ${body.age} months old")
 				.wireTap("direct:wtslProcessInBackground")
 				.delay(constant(1000)).to("mock:wtslout");
 

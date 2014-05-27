@@ -1,5 +1,9 @@
 package co.nz.camel.tutorial.routing.test;
 
+import static org.apache.camel.language.simple.SimpleLanguage.simple;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -8,21 +12,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 import co.nz.camel.tutorial.routing.model.Cheese;
 
-import static org.apache.camel.language.simple.SimpleLanguage.simple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class WireTapStateNoLeaksTest {
 
 	private static final Logger LOGGER = LoggerFactory
@@ -71,8 +68,8 @@ public class WireTapStateNoLeaksTest {
 		LOGGER.info("cheese == tapped = {}", (cheese == tappedCheese));
 		LOGGER.info("out == tapped = {}", (outCheese == tappedCheese));
 
-		assertEquals(outCheese, tappedCheese);
-		assertNotEquals(outCheese, cheese);
+		assertNotEquals(outCheese, tappedCheese);
+		assertEquals(outCheese, cheese);
 	}
 
 }

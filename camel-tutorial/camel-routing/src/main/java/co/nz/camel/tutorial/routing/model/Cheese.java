@@ -1,5 +1,8 @@
 package co.nz.camel.tutorial.routing.model;
 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,7 +10,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * Simple POJO that allows for leaky state between threads.
  */
-public class Cheese implements Cloneable {
+@SuppressWarnings("serial")
+public class Cheese
+// implements Cloneable
+		implements Serializable {
 	private int age;
 
 	public int getAge() {
@@ -18,12 +24,18 @@ public class Cheese implements Cloneable {
 		this.age = age;
 	}
 
-	@Override
 	public Cheese clone() {
 		Cheese cheese = new Cheese();
 		cheese.setAge(this.getAge());
-		return cheese;
+		return SerializationUtils.clone(cheese);
 	}
+
+	// @Override
+	// public Cheese clone() {
+	// Cheese cheese = new Cheese();
+	// cheese.setAge(this.getAge());
+	// return cheese;
+	// }
 
 	@Override
 	public boolean equals(Object obj) {

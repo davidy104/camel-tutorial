@@ -1,4 +1,4 @@
-package co.nz.camel.tutorial.routing.route;
+package co.nz.camel.tutorial.routing.route.cbr;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
