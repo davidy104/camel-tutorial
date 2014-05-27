@@ -21,7 +21,6 @@ public class ExceptionHandlingAggregationStrategy implements
 	public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
 		LOGGER.info("ExceptionHandlingAggregationStrategy aggregate start:{}");
 		if (oldExchange == null) {
-			LOGGER.info("oldExchange is null:{}");
 			if (newExchange.isFailed()) {
 				// this block only gets called if stopOnException() is not
 				// defined on the multicast
@@ -29,13 +28,13 @@ public class ExceptionHandlingAggregationStrategy implements
 				newExchange.setException(null);
 				newExchange.setProperty(MULTICAST_EXCEPTION, ex);
 			}
-
 			return newExchange;
 		} else {
 			LOGGER.info("oldExchange is not null:{}");
 			if (newExchange.isFailed()) {
 				// this block only gets called if stopOnException() is not
 				// defined on the multicast
+				LOGGER.info("exception caught:{}");
 				Exception ex = newExchange.getException();
 				oldExchange.setProperty(MULTICAST_EXCEPTION, ex);
 			}

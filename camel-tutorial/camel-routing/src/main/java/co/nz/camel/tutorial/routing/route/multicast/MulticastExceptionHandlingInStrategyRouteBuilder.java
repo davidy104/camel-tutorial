@@ -5,10 +5,12 @@ import javax.annotation.Resource;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
 
 /**
  * Multicast example with exceptions handled in the AggregationStrategy.
  */
+@Component
 public class MulticastExceptionHandlingInStrategyRouteBuilder extends
 		RouteBuilder {
 

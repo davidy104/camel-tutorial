@@ -19,7 +19,6 @@ public class ConcatenatingAggregationStrategy implements AggregationStrategy {
 	public Exchange aggregate(Exchange exchange1, Exchange exchange2) {
 		LOGGER.info("ConcatenatingAggregationStrategy aggregate start:{}");
 		if (exchange1 == null) {
-
 			return exchange2;
 		} else {
 			String body1 = exchange1.getIn().getBody(String.class);

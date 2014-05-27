@@ -12,6 +12,7 @@ import co.nz.camel.tutorial.routing.route.multicast.MulticastRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastShallowCopyRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastStopOnExceptionRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastTimeoutRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastWithAggregationOfRequestRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastWithAggregationRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapCustomThreadPoolRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapOnPrepareRouteBuilder;
@@ -29,6 +30,18 @@ public class CamelRouteRegistryConfig {
 
 	@Resource
 	private CamelContext camelContext;
+
+	// MulticastWithAggregationOfRequestRouteBuilder inside using spring
+	// annotation to refer other object,
+	// so we should not use keyword new to initial its instance
+	@Resource
+	private MulticastWithAggregationOfRequestRouteBuilder multicastWithAggregationOfRequestRouteBuilder;
+
+	@Resource
+	private MulticastExceptionHandlingInStrategyRouteBuilder multicastExceptionHandlingInStrategyRouteBuilder;
+
+	@Resource
+	private MulticastWithAggregationRouteBuilder multicastWithAggregationRouteBuilder;
 
 	@Bean(initMethod = "initialize")
 	public CamelRouteBuildersInitializer setupWireTapRoutes() throws Exception {
@@ -51,10 +64,11 @@ public class CamelRouteRegistryConfig {
 		return new CamelRouteBuildersInitializer(camelContext,
 				new MulticastRouteBuilder(),
 				new MulticastParallelProcessingRouteBuilder(),
-				new MulticastExceptionHandlingInStrategyRouteBuilder(),
+				multicastExceptionHandlingInStrategyRouteBuilder,
 				new MulticastStopOnExceptionRouteBuilder(),
 				new MulticastShallowCopyRouteBuilder(),
-				new MulticastWithAggregationRouteBuilder(),
-				new MulticastTimeoutRouteBuilder());
+				multicastWithAggregationRouteBuilder,
+				new MulticastTimeoutRouteBuilder(),
+				multicastWithAggregationOfRequestRouteBuilder);
 	}
 }

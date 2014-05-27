@@ -3,10 +3,12 @@ package co.nz.camel.tutorial.routing.route.multicast;
 import javax.annotation.Resource;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
 
 /**
  * Simple multicast example with parallel processing.
  */
+@Component
 public class MulticastWithAggregationRouteBuilder extends RouteBuilder {
 
 	@Resource
