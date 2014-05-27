@@ -6,7 +6,13 @@ import org.apache.camel.CamelContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import co.nz.camel.tutorial.routing.route.multicast.MulticastExceptionHandlingInStrategyRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastParallelProcessingRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastShallowCopyRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastStopOnExceptionRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastTimeoutRouteBuilder;
+import co.nz.camel.tutorial.routing.route.multicast.MulticastWithAggregationRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapCustomThreadPoolRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapOnPrepareRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapRouteBuilder;
@@ -43,6 +49,12 @@ public class CamelRouteRegistryConfig {
 	public CamelRouteBuildersInitializer setupMulticastRoutes()
 			throws Exception {
 		return new CamelRouteBuildersInitializer(camelContext,
-				new MulticastRouteBuilder());
+				new MulticastRouteBuilder(),
+				new MulticastParallelProcessingRouteBuilder(),
+				new MulticastExceptionHandlingInStrategyRouteBuilder(),
+				new MulticastStopOnExceptionRouteBuilder(),
+				new MulticastShallowCopyRouteBuilder(),
+				new MulticastWithAggregationRouteBuilder(),
+				new MulticastTimeoutRouteBuilder());
 	}
 }

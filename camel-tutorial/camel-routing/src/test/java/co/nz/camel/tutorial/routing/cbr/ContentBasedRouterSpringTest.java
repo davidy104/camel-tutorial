@@ -1,4 +1,4 @@
-package co.nz.camel.tutorial.routing.test;
+package co.nz.camel.tutorial.routing.cbr;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;

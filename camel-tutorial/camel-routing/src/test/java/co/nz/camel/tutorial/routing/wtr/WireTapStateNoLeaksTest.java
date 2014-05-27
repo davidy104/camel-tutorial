@@ -1,8 +1,8 @@
-package co.nz.camel.tutorial.routing.test;
+package co.nz.camel.tutorial.routing.wtr;
 
 import static org.apache.camel.language.simple.SimpleLanguage.simple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -68,8 +68,8 @@ public class WireTapStateNoLeaksTest {
 		LOGGER.info("cheese == tapped = {}", (cheese == tappedCheese));
 		LOGGER.info("out == tapped = {}", (outCheese == tappedCheese));
 
-		assertNotEquals(outCheese, tappedCheese);
-		assertEquals(outCheese, cheese);
+		assertNotSame(outCheese, tappedCheese);
+		assertSame(outCheese, cheese);
 	}
 
 }

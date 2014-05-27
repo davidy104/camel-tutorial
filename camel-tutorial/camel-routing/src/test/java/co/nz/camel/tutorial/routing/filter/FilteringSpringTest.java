@@ -1,4 +1,4 @@
-package co.nz.camel.tutorial.routing.test;
+package co.nz.camel.tutorial.routing.filter;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;

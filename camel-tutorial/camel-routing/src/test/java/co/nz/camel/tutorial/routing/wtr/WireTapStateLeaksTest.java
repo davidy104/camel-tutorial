@@ -1,6 +1,7 @@
-package co.nz.camel.tutorial.routing.test;
+package co.nz.camel.tutorial.routing.wtr;
 
 import static org.apache.camel.language.simple.SimpleLanguage.simple;
+import static org.junit.Assert.assertSame;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
@@ -8,8 +9,8 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,8 +19,10 @@ import co.nz.camel.tutorial.routing.model.Cheese;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class WireTapStateLeaksTest {
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(WireTapStateLeaksTest.class);
 
 	@Produce(uri = "direct:wtslStart")
 	protected ProducerTemplate template;
@@ -50,6 +53,21 @@ public class WireTapStateLeaksTest {
 
 		out.assertIsSatisfied();
 		tapped.assertIsSatisfied();
+
+		final Cheese outCheese = out.getReceivedExchanges().get(0).getIn()
+				.getBody(Cheese.class);
+		final Cheese tappedCheese = tapped.getReceivedExchanges().get(0)
+				.getIn().getBody(Cheese.class);
+
+		LOGGER.info("cheese = {}; out = {}; tapped = {}", cheese, outCheese,
+				tappedCheese);
+
+		LOGGER.info("cheese == out = {}", (cheese == outCheese));
+		LOGGER.info("cheese == tapped = {}", (cheese == tappedCheese));
+		LOGGER.info("out == tapped = {}", (outCheese == tappedCheese));
+
+		assertSame(outCheese, tappedCheese);
+		assertSame(outCheese, cheese);
 	}
 
 }
