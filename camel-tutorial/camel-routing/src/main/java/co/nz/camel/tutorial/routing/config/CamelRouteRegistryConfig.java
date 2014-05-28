@@ -14,6 +14,11 @@ import co.nz.camel.tutorial.routing.route.multicast.MulticastStopOnExceptionRout
 import co.nz.camel.tutorial.routing.route.multicast.MulticastTimeoutRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastWithAggregationOfRequestRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastWithAggregationRouteBuilder;
+import co.nz.camel.tutorial.routing.route.recipientlist.RecipientListRouteBuilder;
+import co.nz.camel.tutorial.routing.route.recipientlist.RecipientListUnrecognizedEndpointRouteBuilder;
+import co.nz.camel.tutorial.routing.route.throttler.ThrottlerAsyncDelayedRouteBuilder;
+import co.nz.camel.tutorial.routing.route.throttler.ThrottlerDynamicRouteBuilder;
+import co.nz.camel.tutorial.routing.route.throttler.ThrottlerRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapCustomThreadPoolRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapOnPrepareRouteBuilder;
 import co.nz.camel.tutorial.routing.route.wtr.WireTapRouteBuilder;
@@ -43,6 +48,9 @@ public class CamelRouteRegistryConfig {
 	@Resource
 	private MulticastWithAggregationRouteBuilder multicastWithAggregationRouteBuilder;
 
+	@Resource
+	private ThrottlerAsyncDelayedRouteBuilder throttlerAsyncDelayedRouteBuilder;
+
 	@Bean(initMethod = "initialize")
 	public CamelRouteBuildersInitializer setupWireTapRoutes() throws Exception {
 		return new CamelRouteBuildersInitializer(camelContext,
@@ -70,5 +78,24 @@ public class CamelRouteRegistryConfig {
 				multicastWithAggregationRouteBuilder,
 				new MulticastTimeoutRouteBuilder(),
 				multicastWithAggregationOfRequestRouteBuilder);
+	}
+
+	// recipientlist
+	@Bean(initMethod = "initialize")
+	public CamelRouteBuildersInitializer setupRecipientlistRoutes()
+			throws Exception {
+		return new CamelRouteBuildersInitializer(camelContext,
+				new RecipientListRouteBuilder(),
+				new RecipientListUnrecognizedEndpointRouteBuilder());
+	}
+
+	// Throttler
+	@Bean(initMethod = "initialize")
+	public CamelRouteBuildersInitializer setupThrottlerRoutes()
+			throws Exception {
+		return new CamelRouteBuildersInitializer(camelContext,
+				new ThrottlerRouteBuilder(),
+				new ThrottlerDynamicRouteBuilder(),
+				throttlerAsyncDelayedRouteBuilder);
 	}
 }

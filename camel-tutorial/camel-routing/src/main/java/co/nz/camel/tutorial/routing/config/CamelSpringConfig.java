@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ThreadPoolRejectedPolicy;
+import org.apache.camel.builder.ThreadPoolProfileBuilder;
 import org.apache.camel.spi.ThreadPoolProfile;
 import org.apache.camel.spring.CamelBeanPostProcessor;
 import org.apache.camel.spring.SpringCamelContext;
@@ -39,8 +40,10 @@ public class CamelSpringConfig {
 	@Bean
 	public CamelContext camelContext() throws Exception {
 		SpringCamelContext camelContext = new SpringCamelContext(context);
-		camelContext.getExecutorServiceManager().registerThreadPoolProfile(
+		camelContext.getExecutorServiceManager().setDefaultThreadPoolProfile(
 				genericThreadPoolProfile());
+		camelContext.getExecutorServiceManager().registerThreadPoolProfile(
+				throttlerPoolProfile());
 		camelContext.addRoutes(contentBasedRouterRouteBuilder);
 		camelContext.addRoutes(filteringRouteBuilder);
 		return camelContext;
@@ -56,6 +59,14 @@ public class CamelSpringConfig {
 		profile.setTimeUnit(TimeUnit.SECONDS);
 		profile.setRejectedPolicy(ThreadPoolRejectedPolicy.Abort);
 		return profile;
+	}
+
+	@Bean
+	public ThreadPoolProfile throttlerPoolProfile() {
+		ThreadPoolProfileBuilder builder = new ThreadPoolProfileBuilder(
+				"myThrottler");
+		builder.maxQueueSize(5);
+		return builder.build();
 	}
 
 }
