@@ -30,15 +30,23 @@
 			<id>camel-tutorial-snapshots</id>
 			<url>http://localhost:8081/nexus/content/repositories/camel-tutorial-snapshots</url>
 		</snapshotRepository>
+
 		
+
+		<!--http://books.sonatype.com/nexus-book/reference/_creating_a_site_repository.html -->
+		<!-- 
+		settings.xml
+		<server>
+		<id>nexus-site</id>
+		<username>admin</username>
+		<password>admin123</password>
+		</server>
+		 -->
 		<site>
-			<id>nexus</id>
-			<name>site</name>
-			<url>http://localhost:8081</url>
+			<id>nexus-site</id>
+			<url>dav:http://localhost:8081/nexus/content/sites/nexus-site/${project.groupId}/${project.artifactId}/${project.version}</url>
 		</site>
 	</distributionManagement>
-
-
 
 
 	<scm>
@@ -369,8 +377,18 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
 		<plugins>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
+			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.6</version>

@@ -1,7 +1,7 @@
 	---
-	Common Components 
+	Message Routing 
 	---
 
- This is the Module which is used to hold all generic components including ESB endpoints, sequence and proxy service and etc.
+ This chapter explains how to make use of Camel's built-in EIPs (Enterprise IntegrationPatterns) 
  
- All components could be refered by other Modules, so this modules should be deployed firstly before other modules.
+ to write typical integration logic.

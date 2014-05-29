@@ -1,0 +1,10 @@
+co.nz.camel.tutorial.routing.config
+co.nz.camel.tutorial.routing.model
+co.nz.camel.tutorial.routing.processor
+co.nz.camel.tutorial.routing.route.cbr
+co.nz.camel.tutorial.routing.route.dynamicrouter
+co.nz.camel.tutorial.routing.route.filter
+co.nz.camel.tutorial.routing.route.multicast
+co.nz.camel.tutorial.routing.route.recipientlist
+co.nz.camel.tutorial.routing.route.throttler
+co.nz.camel.tutorial.routing.route.wtr
