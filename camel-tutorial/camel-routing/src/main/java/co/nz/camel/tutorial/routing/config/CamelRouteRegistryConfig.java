@@ -6,6 +6,7 @@ import org.apache.camel.CamelContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import co.nz.camel.tutorial.routing.route.dynamicrouter.DynamicRouterRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastExceptionHandlingInStrategyRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastParallelProcessingRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastRouteBuilder;
@@ -97,5 +98,12 @@ public class CamelRouteRegistryConfig {
 				new ThrottlerRouteBuilder(),
 				new ThrottlerDynamicRouteBuilder(),
 				throttlerAsyncDelayedRouteBuilder);
+	}
+
+	// DynamicRoute
+	@Bean(initMethod = "initialize")
+	public CamelRouteBuildersInitializer setupDynamicRoutes() throws Exception {
+		return new CamelRouteBuildersInitializer(camelContext,
+				new DynamicRouterRouteBuilder());
 	}
 }

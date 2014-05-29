@@ -11,6 +11,43 @@
 	<name>camel-tutorial</name>
 	<url>http://camel.tutorial.co.nz</url>
 
+	<developers>
+		<developer>
+			<name>David Yuan</name>
+			<email>david.yuan@propellerhead.co.nz</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<repository>
+			<id>camel-tutorial-release</id>
+			<url>http://localhost:8081/nexus/content/repositories/camel-tutorial-release</url>
+		</repository>
+		<snapshotRepository>
+			<id>camel-tutorial-snapshots</id>
+			<url>http://localhost:8081/nexus/content/repositories/camel-tutorial-snapshots</url>
+		</snapshotRepository>
+		
+		<site>
+			<id>nexus</id>
+			<name>site</name>
+			<url>http://localhost:8081</url>
+		</site>
+	</distributionManagement>
+
+
+
+
+	<scm>
+		<connection>scm:git:https://github.com/davidy104/camel-tutorial.git</connection>
+		<url>http://github.com/davidy104/camel-tutorial.git</url>
+		<developerConnection>scm:git:https://github.com/davidy104/camel-tutorial.git</developerConnection>
+	</scm>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activemq.version>5.9.0</activemq.version>
@@ -363,7 +400,6 @@
 
 		<pluginManagement>
 			<plugins>
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-idea-plugin</artifactId>
@@ -397,4 +433,64 @@
 	<modules>
 		<module>camel-routing</module>
 	</modules>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.6</version>
+				<reportSets>
+					<reportSet>
+						<id>aggregate-project-info</id>
+						<!-- <inherited>false</inherited> -->
+						<reports>
+							<report>index</report>
+							<report>project-team</report>
+							<report>dependency-info</report>
+							<report>scm</report>
+							<report>distribution-management</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<reportSets>
+					<reportSet>
+						<id>default</id>
+						<configuration>
+							<!-- Specific configuration for the given reports -->
+						</configuration>
+						<reports>
+							<report>javadoc</report>
+							<!-- <report>test-javadoc</report> -->
+						</reports>
+					</reportSet>
+					<reportSet>
+						<id>aggregate</id>
+						<configuration>
+							<!-- Specific configuration for the given reports -->
+						</configuration>
+						<reports>
+							<report>aggregate</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

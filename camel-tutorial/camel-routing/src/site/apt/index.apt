@@ -1,0 +1,7 @@
+	---
+	Common Components 
+	---
+
+ This is the Module which is used to hold all generic components including ESB endpoints, sequence and proxy service and etc.
+ 
+ All components could be refered by other Modules, so this modules should be deployed firstly before other modules.
