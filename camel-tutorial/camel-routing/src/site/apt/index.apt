@@ -1,7 +1,14 @@
 	---
-	Message Routing 
+	Development environment 
 	---
 
- This chapter explains how to make use of Camel's built-in EIPs (Enterprise IntegrationPatterns) 
- 
- to write typical integration logic.
+WSO2 Products Install and Configure
+
+	* WSO2 ESB {{http://wso2.com/products/enterprise-service-bus}}
+
+	* WSO2 Business Process Server {{http://wso2.com/products/business-process-server}}
+
+	* WSO2 Data Services Server {{http://wso2.com/products/data-services-server}}
+	
+This chapter explains how to make use of Camel's built-in EIPs (Enterprise IntegrationPatterns) 
+to write typical integration logic.
