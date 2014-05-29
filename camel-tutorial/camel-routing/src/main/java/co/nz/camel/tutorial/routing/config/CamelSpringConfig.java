@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 import co.nz.camel.tutorial.routing.route.cbr.ContentBasedRouterRouteBuilder;
 import co.nz.camel.tutorial.routing.route.filter.FilteringRouteBuilder;
+import co.nz.camel.tutorial.routing.route.routingslip.RoutingSlipRouteBuilder;
 
 @Configuration
 public class CamelSpringConfig {
@@ -29,6 +30,9 @@ public class CamelSpringConfig {
 
 	@Resource
 	private FilteringRouteBuilder filteringRouteBuilder;
+
+	@Resource
+	private RoutingSlipRouteBuilder routingSlipRouteBuilder;
 
 	@Bean
 	public CamelBeanPostProcessor camelBeanPostProcessor() {
@@ -46,6 +50,7 @@ public class CamelSpringConfig {
 				throttlerPoolProfile());
 		camelContext.addRoutes(contentBasedRouterRouteBuilder);
 		camelContext.addRoutes(filteringRouteBuilder);
+		camelContext.addRoutes(routingSlipRouteBuilder);
 		return camelContext;
 	}
 

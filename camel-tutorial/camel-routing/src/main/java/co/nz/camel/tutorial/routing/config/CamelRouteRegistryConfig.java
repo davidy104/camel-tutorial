@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.nz.camel.tutorial.routing.route.dynamicrouter.DynamicRouterRouteBuilder;
+import co.nz.camel.tutorial.routing.route.loadbalancer.LoadBalancerFailoverRouteBuilder;
+import co.nz.camel.tutorial.routing.route.loadbalancer.LoadBalancerStickyRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastExceptionHandlingInStrategyRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastParallelProcessingRouteBuilder;
 import co.nz.camel.tutorial.routing.route.multicast.MulticastRouteBuilder;
@@ -105,5 +107,14 @@ public class CamelRouteRegistryConfig {
 	public CamelRouteBuildersInitializer setupDynamicRoutes() throws Exception {
 		return new CamelRouteBuildersInitializer(camelContext,
 				new DynamicRouterRouteBuilder());
+	}
+
+	// Loadbalancer
+	@Bean(initMethod = "initialize")
+	public CamelRouteBuildersInitializer setupLoadbalancerRoutes()
+			throws Exception {
+		return new CamelRouteBuildersInitializer(camelContext,
+				new LoadBalancerFailoverRouteBuilder(),
+				new LoadBalancerStickyRouteBuilder());
 	}
 }
