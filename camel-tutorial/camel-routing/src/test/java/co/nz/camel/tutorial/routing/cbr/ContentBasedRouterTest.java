@@ -23,7 +23,7 @@ import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-public class ContentBasedRouterSpringTest {
+public class ContentBasedRouterTest {
 
 	@EndpointInject(uri = "mock:cbrCamel")
 	private MockEndpoint mockCamel;

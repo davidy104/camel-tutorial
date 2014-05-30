@@ -18,7 +18,7 @@ import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class ThrottlerAsyncDelayedTest {
+public class ThrottlerAsyncDelayedSlowTest {
 
 	@Produce
 	protected ProducerTemplate template;
@@ -45,7 +45,7 @@ public class ThrottlerAsyncDelayedTest {
 		throttled.expectedMessageCount(messageCount);
 		unthrottled.expectedMessageCount(messageCount);
 		after.expectedMessageCount(messageCount);
-		
+
 		for (int i = 0; i < messageCount; i++) {
 			template.asyncSendBody("direct:trtaStart", "Camel Rocks");
 		}
@@ -63,8 +63,8 @@ public class ThrottlerAsyncDelayedTest {
 				assertTrue(threadName.contains("Throttle"));
 			}
 		}
-		
-//		Thread.sleep(10000);
+
+		// Thread.sleep(10000);
 	}
 
 }

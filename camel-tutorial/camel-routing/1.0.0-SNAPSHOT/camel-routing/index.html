@@ -50,8 +50,8 @@
                                                    <h5>Overview</h5>
                   <ul>
                   <li class="none">
-            <strong>About</strong>
-          </li>
+                  <a href="overview.html">About</a>
+            </li>
           </ul>
                        <h5>Project Documentation</h5>
                   <ul>
@@ -96,6 +96,13 @@
 <div class="section">
 <h2>Content Based Routing<a name="Content_Based_Routing"></a></h2>
 <p>When you need to route messages based on the content of the message, and/or based on the headers or properties associated with the message, using Camel's Content Based Router EIP is a great way to do that.</p></div>
+<div class="section">
+<h2>Filtering Routing<a name="Filtering_Routing"></a></h2>
+<p>When you need to perform a sequence of steps only when a message matches a certain condition (Predicate), then a Filter is a good option. (similar to an if() <a name="a..">..</a> else if () <a name="a..">..</a> else <a name="a..">..</a> statement in Java)</p></div>
+<div class="section">
+<h2>Wire Tap Routing<a name="Wire_Tap_Routing"></a></h2>
+<p>When you want to process the current message in the background (concurrently) to the main route, without requiring a response, the Wire Tap EIP can help. A typical use case for this is logging the message to a backend system. The main thread of execution will continue to process the message through the current route as usual, while Wire Tap allows additional messaging processing to occur outside of the main route.</p>
+<p>The body of the wire tapped message is the same object as that in the original message, as Camel performs a shallow copy of the exchange. It is therefore possible that two routes executing on the wire-tapped message object may change the internal state of that object, thereby leaking information into each other. See the following Deep copying of the exchange section for details on doing a deep copy of the exchange.</p></div>
       </div>
     </div>
     <div class="clear">

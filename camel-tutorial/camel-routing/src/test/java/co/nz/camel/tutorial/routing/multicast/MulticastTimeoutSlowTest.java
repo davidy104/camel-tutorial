@@ -13,7 +13,7 @@ import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class MulticastTimeoutTest {
+public class MulticastTimeoutSlowTest {
 
 	public static final String MESSAGE_BODY = "Message to be multicast";
 

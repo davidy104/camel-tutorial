@@ -1,0 +1,20 @@
+h3. Message Routing EIP
+ 
+This chapter explains how to make use of Camel's built-in EIPs *Enterprise IntegrationPatterns* to write typical integration logic.
+
+h4. 1. Content Based Routing
+
+When you need to route messages based on the content of the message, and/or based on the headers or properties associated with the message, using Camel's Content Based Router EIP is a great way to do that.
+
+h4. 2. Filtering Routing
+
+When you need to perform a sequence of steps only when a message matches a certain condition (Predicate), then a Filter is a good option.(similar to an if() {..} else if () {..} else {..} statement in Java)
+
+h4. 3. Wire Tap Routing
+
+When you want to process the current message in the background (concurrently) to the main route, without requiring a response, the Wire Tap EIP can help. *A typical use case* for this is logging the message to a backend system. The main thread of execution will continue to process the message through the current route as usual, while Wire Tap allows additional messaging processing to occur outside of the main route.
+
+*Deep copying of the exchange*
+
+Whenever possible, this sort of state leakage can be avoided by making messages immutable by setting state through constructors only. When this is not possible, and the tapping route modifies the state, the Wire Tap EIP provides us with a mechanism to perform a "deep" copy of the message.
+

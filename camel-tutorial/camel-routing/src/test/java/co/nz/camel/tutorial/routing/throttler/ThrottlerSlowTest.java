@@ -13,7 +13,7 @@ import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class ThrottlerTest {
+public class ThrottlerSlowTest {
 
 	@Produce
 	protected ProducerTemplate template;

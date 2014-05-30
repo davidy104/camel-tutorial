@@ -16,7 +16,7 @@ import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class ThrottlerDynamicTest {
+public class ThrottlerDynamicSlowTest {
 
 	@Produce
 	protected ProducerTemplate template;

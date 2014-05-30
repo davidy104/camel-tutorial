@@ -13,6 +13,7 @@
 	<name>camel-routing</name>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -75,6 +76,8 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 	</dependencies>
+
+
 
 	<reporting>
 		<plugins>
