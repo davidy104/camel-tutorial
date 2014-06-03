@@ -5,7 +5,7 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component(value = "myMerger")
 public class MergeInReplacementText implements AggregationStrategy {
 	public static final String ENRICH_EXAMPLE_ORIGINAL_BODY = "EnrichExample.originalBody";
 	public static final String ENRICH_EXAMPLE_REPLACEMENT_STRING = "EnrichExample.replacementString";

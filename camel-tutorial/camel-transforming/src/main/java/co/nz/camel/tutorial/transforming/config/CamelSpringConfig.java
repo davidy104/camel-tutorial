@@ -2,6 +2,7 @@ package co.nz.camel.tutorial.transforming.config;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
@@ -13,11 +14,16 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import co.nz.camel.tutorial.transforming.normalizer.NormalizerRouteBuilder;
+
 @Configuration
 public class CamelSpringConfig {
 
 	@Inject
 	private ApplicationContext context;
+
+	@Resource
+	private NormalizerRouteBuilder NormalizerRouteBuilder;
 
 	@Bean
 	public CamelBeanPostProcessor camelBeanPostProcessor() {
@@ -31,6 +37,7 @@ public class CamelSpringConfig {
 		SpringCamelContext camelContext = new SpringCamelContext(context);
 		camelContext.getExecutorServiceManager().setDefaultThreadPoolProfile(
 				genericThreadPoolProfile());
+		camelContext.addRoutes(NormalizerRouteBuilder);
 		return camelContext;
 	}
 

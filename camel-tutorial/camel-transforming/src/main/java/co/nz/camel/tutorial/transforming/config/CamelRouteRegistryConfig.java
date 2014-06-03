@@ -34,6 +34,9 @@ public class CamelRouteRegistryConfig {
 	@Resource
 	private EnrichRouteBuilder enrichRouteBuilder;
 
+	@Resource
+	private EnrichWithAggregatorRouteBuilder enrichWithAggregatorRouteBuilder;
+
 	@Bean(initMethod = "initialize")
 	public CamelRouteBuildersInitializer setupSimpleTransforming()
 			throws Exception {
@@ -87,7 +90,7 @@ public class CamelRouteRegistryConfig {
 	public CamelRouteBuildersInitializer setupEnrichTransforming()
 			throws Exception {
 		return new CamelRouteBuildersInitializer(camelContext,
-				new EnrichXsltRouteBuilder(),
-				new EnrichWithAggregatorRouteBuilder(), enrichRouteBuilder);
+				new EnrichXsltRouteBuilder(), enrichWithAggregatorRouteBuilder,
+				enrichRouteBuilder);
 	}
 }
