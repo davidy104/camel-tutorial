@@ -488,7 +488,8 @@
 		<module>camel-routing</module>
 		<module>camel-extend</module>
     <module>camel-transforming</module>
-  </modules>
+    <module>camel-error</module>
+	</modules>
 
 
 	<profiles>

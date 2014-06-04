@@ -1,9 +1,9 @@
-package co.nz.camel.tutorial.extend.produce;
+package co.nz.camel.tutorial.extend.consume;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Resource;
-
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,14 +13,16 @@ import co.nz.camel.tutorial.extend.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class ProxyProduceTest {
+public class ConsumeIntegrationTest {
 
-	@Resource
-	private ProxyProduce proxyProduce;
+	@Produce
+	private ProducerTemplate template;
 
 	@Test
-	public void testPojoProxyProduce() throws Exception {
-		final String response = proxyProduce.doSomething("Scott");
+	public void testPojoConsume() throws Exception {
+		final String response = template.requestBody("activemq:queue:sayhello",
+				"Scott", String.class);
+
 		assertEquals("Hello Scott", response);
 	}
 

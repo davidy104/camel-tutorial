@@ -14,7 +14,7 @@ import co.nz.camel.tutorial.extend.config.ApplicationConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
-public class ProduceTest {
+public class ProduceIntegrationTest {
 
 	@Resource
 	private CamelContext context;
