@@ -17,7 +17,7 @@ import co.nz.camel.tutorial.error.config.ApplicationConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-public class DlcTest {
+public class DlcSlowTest {
 
 	@Produce
 	private ProducerTemplate template;

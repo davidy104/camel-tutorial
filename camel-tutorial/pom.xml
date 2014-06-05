@@ -489,7 +489,9 @@
 		<module>camel-extend</module>
     <module>camel-transforming</module>
     <module>camel-error</module>
-	</modules>
+    <module>camel-split-join</module>
+    <module>camel-shared</module>
+  </modules>
 
 
 	<profiles>
