@@ -14,11 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
+import co.nz.camel.tutorial.routing.config.ApplicationContextConfiguration;
 import co.nz.camel.tutorial.routing.model.Cheese;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfiguration.class)
+@ContextConfiguration(classes = ApplicationContextConfiguration.class)
 public class WireTapStateLeaksTest {
 
 	private static final Logger LOGGER = LoggerFactory

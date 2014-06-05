@@ -9,11 +9,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
+import co.nz.camel.tutorial.routing.config.ApplicationContextConfiguration;
 import co.nz.camel.tutorial.routing.route.routingslip.RoutingSlipRouteBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfiguration.class)
+@ContextConfiguration(classes = ApplicationContextConfiguration.class)
 public class RoutingSlipTest {
 	@Produce
 	protected ProducerTemplate template;

@@ -12,13 +12,13 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import co.nz.camel.tutorial.routing.config.ApplicationConfiguration;
+import co.nz.camel.tutorial.routing.config.ApplicationContextConfiguration;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfiguration.class)
+@ContextConfiguration(classes = ApplicationContextConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class MulticastShallowCopyTest {
 	public static final String MESSAGE_BODY = "Message to be multicast";
