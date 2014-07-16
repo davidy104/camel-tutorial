@@ -193,6 +193,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-aws</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons-codec.version}</version>
@@ -492,6 +498,7 @@
 		<module>camel-error</module>
 		<module>camel-split-join</module>
 		<module>camel-shared</module>
+		<module>camel-aws</module>
 	</modules>
 
 
