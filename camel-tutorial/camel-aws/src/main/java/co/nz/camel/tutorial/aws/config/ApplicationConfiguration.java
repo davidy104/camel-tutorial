@@ -38,9 +38,6 @@ public class ApplicationConfiguration {
 	private static final String ACCESS_KEY = "aws.accessKey";
 	private static final String SECRET_KEY = "aws.secretKey";
 
-	// @Resource
-	// private GetImageRoute getImageRoute;
-
 	@Bean
 	public AwsClientConfig awsClientConfig() {
 		return AwsClientConfig.getBuilder(
@@ -65,6 +62,5 @@ public class ApplicationConfiguration {
 		SimpleRegistry registry = new SimpleRegistry();
 		registry.put("amazonS3Client", amazonS3Client());
 		springCamelContext.setRegistry(registry);
-		// springCamelContext.addRoutes(getImageRoute);
 	}
 }

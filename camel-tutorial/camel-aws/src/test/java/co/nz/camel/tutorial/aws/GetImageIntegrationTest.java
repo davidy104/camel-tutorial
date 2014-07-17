@@ -1,8 +1,12 @@
 package co.nz.camel.tutorial.aws;
 
+import java.io.File;
+import java.io.InputStream;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,21 +26,45 @@ public class GetImageIntegrationTest {
 	private static String TEST_KEY = "vernon/296984/original.jpg";
 
 	@Resource
-	private ConsumePojo s3ImageConsumer;
+	private AwsS3ClientProxy awsClient;
+
+	private String localClasspathImagePath;
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(GetImageIntegrationTest.class);
 
 	@Test
 	public void testDownloadImageFromAWS() throws Exception {
-		Exchange exchange = s3ImageConsumer.downloadImage(TEST_KEY);
-		LOGGER.info("exchange:{} ", exchange);
+		awsClient.getFile(TEST_KEY, new ConsumePostProcessor() {
 
-		String awsS3Key = (String) exchange.getIn().getHeader("CamelAwsS3Key");
-		String awsS3ContentLength = (String) exchange.getIn().getHeader(
-				"CamelAwsS3ContentLength");
-		LOGGER.info("awsS3Key:{} ", awsS3Key);
-		LOGGER.info("awsS3ContentLength:{} ", awsS3ContentLength);
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				LOGGER.info("exchange:{} ", exchange);
+
+				Message message = exchange.getIn();
+
+				String awsS3Key = (String) message.getHeader("CamelAwsS3Key");
+				Long awsS3ContentLength = (Long) message
+						.getHeader("CamelAwsS3ContentLength");
+
+				String awsS3ETag = (String) message.getHeader("CamelAwsS3ETag");
+
+				LOGGER.info("awsS3Key:{} ", awsS3Key);
+				LOGGER.info("awsS3ContentLength:{} ", awsS3ContentLength);
+				LOGGER.info("awsS3ETag:{} ", awsS3ETag);
+
+				String fileName = awsS3Key.substring(
+						awsS3Key.lastIndexOf("/") + 1, awsS3Key.length());
+				LOGGER.info("fileName:{} ", fileName);
+
+				InputStream imageStream = message.getBody(InputStream.class);
+				File imageFile = AwsClientUtils.writeTempFileToClasspath(
+						fileName, imageStream);
+				localClasspathImagePath = imageFile.getAbsolutePath();
+				LOGGER.info("localClasspathImagePath:{} ",
+						localClasspathImagePath);
+			}
+		});
 	}
 
 }
