@@ -6,7 +6,6 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.component.jms.JmsConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,8 +15,8 @@ import org.springframework.jms.connection.JmsTransactionManager;
 @Configuration
 @PropertySource("classpath:mq-config.properties")
 public class CamelActivemqConfig {
-	@Autowired
-	private PooledConnectionFactory pooledConnectionFactory;
+	// @Autowired
+	// private PooledConnectionFactory pooledConnectionFactory;
 
 	@Resource
 	private Environment environment;
@@ -48,6 +47,7 @@ public class CamelActivemqConfig {
 				.getRequiredProperty(ACTIVITYMQ_MAXCONNECTIONS)));
 		pooledConnectionFactory
 				.setConnectionFactory(activeMQConnectionFactory());
+
 		return pooledConnectionFactory;
 	}
 
@@ -55,7 +55,7 @@ public class CamelActivemqConfig {
 	public JmsComponent jmsComponent() {
 		JmsComponent jmsComponent = new JmsComponent();
 		JmsConfiguration jmsConfiguration = new JmsConfiguration();
-		jmsConfiguration.setConnectionFactory(pooledConnectionFactory);
+		jmsConfiguration.setConnectionFactory(pooledConnectionFactory());
 		jmsConfiguration.setTransactionManager(jmsTransactionManager());
 		jmsConfiguration.setTransacted(Boolean.valueOf(environment
 				.getRequiredProperty(ACTIVITYMQ_TRANSACTED)));
@@ -67,7 +67,7 @@ public class CamelActivemqConfig {
 	@Bean
 	public JmsTransactionManager jmsTransactionManager() {
 		JmsTransactionManager jmsTransactionManager = new JmsTransactionManager();
-		jmsTransactionManager.setConnectionFactory(pooledConnectionFactory);
+		jmsTransactionManager.setConnectionFactory(pooledConnectionFactory());
 		return jmsTransactionManager;
 	}
 

@@ -154,6 +154,13 @@
 
 			<dependency>
 				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-groovy</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.apache.camel</groupId>
 				<artifactId>camel-spring-security</artifactId>
 				<version>${camel.version}</version>
 			</dependency>
@@ -391,23 +398,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.11</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.surefire</groupId>
-						<artifactId>surefire-junit47</artifactId>
-						<version>2.12</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<!-- <includes> <include>**/*.class</include> </includes> <excludedGroups>co.nz.camel.tutorial.SlowTest</excludedGroups> -->
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*IntegrationTest.java</exclude>
-						<exclude>**/*SlowTest.java</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
@@ -502,48 +492,7 @@
 	</modules>
 
 
-	<profiles>
-		<!-- mvn test -P slow-tests -->
-		<profile>
-			<id>slow-tests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<includes>
-								<include>**/*SlowTest.java</include>
-							</includes>
-							<excludes>
-								<exclude>**/*IntegrationTest.java</exclude>
-							</excludes>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- mvn test -P integration-tests -->
-		<profile>
-			<id>integration-tests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<includes>
-								<include>**/*IntegrationTest.java</include>
-							</includes>
-							<excludes>
-								<exclude>**/*SlowTest.java</exclude>
-							</excludes>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+
 
 	<reporting>
 		<plugins>

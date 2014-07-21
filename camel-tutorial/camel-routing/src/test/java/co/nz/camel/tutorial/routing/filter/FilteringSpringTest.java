@@ -7,6 +7,8 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,6 +36,9 @@ public class FilteringSpringTest {
 	@Produce
 	private ProducerTemplate producer;
 
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(FilteringSpringTest.class);
+
 	@Test
 	public void testFirstFilter() throws Exception {
 		mockC.expectedMessageCount(1);
@@ -51,6 +56,10 @@ public class FilteringSpringTest {
 		// Predicate
 		mockOther.expectedPropertyReceived(Exchange.FILTER_MATCHED, false);
 		producer.sendBody("direct:filterstart", "Cooks Rocks");
+
+		String mockOtherBody = mockOther.getExchanges().get(0).getIn()
+				.getBody(String.class);
+		LOGGER.info("mockOtherBody:{} ", mockOtherBody);
 
 		mockC.assertIsSatisfied();
 		mockAfterC.assertIsSatisfied();
