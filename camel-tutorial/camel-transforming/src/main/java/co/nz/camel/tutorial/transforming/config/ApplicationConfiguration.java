@@ -19,6 +19,7 @@ import co.nz.camel.tutorial.transforming.json.JsonRouteBuilder;
 import co.nz.camel.tutorial.transforming.normalizer.NormalizerRouteBuilder;
 import co.nz.camel.tutorial.transforming.simple.SimpleRouteBuilder;
 import co.nz.camel.tutorial.transforming.xmljson.XmlJsonRouteBuilder;
+import co.nz.camel.tutorial.transforming.xmljson.XmlToJsonJacksonRoute;
 import co.nz.camel.tutorial.transforming.xquery.XqueryParamRouteBuilder;
 import co.nz.camel.tutorial.transforming.xquery.XqueryRouteBuilder;
 import co.nz.camel.tutorial.transforming.xslt.XsltParamRouteBuilder;
@@ -72,6 +73,7 @@ public class ApplicationConfiguration {
 
 	private void initXmlJsonTransformingRoutes() throws Exception {
 		camelContext.addRoutes(new XmlJsonRouteBuilder());
+		camelContext.addRoutes(new XmlToJsonJacksonRoute());
 	}
 
 	private void initCsvTransforming() throws Exception {

@@ -22,5 +22,7 @@ public class XmlJsonRouteBuilder extends RouteBuilder {
 
 		from("direct:XmlJsonUnmarshalBookstore").unmarshal(xmlJsonFormat).to(
 				"mock:XmlJsonUnmarshalBookstoreResult");
+		
+		
 	}
 }
