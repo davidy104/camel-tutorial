@@ -21,7 +21,7 @@ public class ExceptionRouteBuilder extends RouteBuilder {
 				.handled(true).transform(constant("Something Bad Happened!"))
 				.to("mock:handleExceptionError").end()
 				.bean(FlakyProcessor.class).transform(constant("All Good"))
-				.to("mock:exceptionResult");
+				.to("mock:eResult");
 
 		from("direct:exceptionContinue").onException(FlakyException.class)
 				.continued(true).to("mock:exceptionIgnore").end()
