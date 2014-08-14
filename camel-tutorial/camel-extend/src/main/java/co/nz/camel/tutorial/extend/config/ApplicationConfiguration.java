@@ -41,4 +41,6 @@ public class ApplicationConfiguration {
 		camelContext.addRoutes(myPredicateCompoundRouteBuilder);
 		camelContext.addRoutes(myPredicateInlineRouteBuilder);
 	}
+	
+	 
 }
